@@ -1,0 +1,45 @@
+{% extends 'music/base.html' %}
+{% block title %}
+   Favorite
+{% endblock %}
+
+
+{% block body %}
+
+{% if error_message %}
+    <p><strong>{{ error_message }}</strong></p>
+{% endif %}
+
+<form action="" method="post">
+    {% csrf_token %}
+
+        <div class="col-md-3 col-md-offset-1" style="background-color: white">
+            <li>
+                <br/>
+                <img class="img-rounded" src="{{ album.logo.url }}" width="310px" height="300px" /><br/>
+                <h4>Title :{{ album.album_title }}</h4>
+                <h4>Artist :{{ album.artist }}</h4>
+            </li>
+        </div>
+        <div class="col-md-6 col-md-offset-1" style="background-color: white">
+            <h4>All Songs</h4><br/>
+
+            <h4><div class="col-md-3"> Titile </div>
+                <div class="col-md-3"> Audio File </div>
+                <div class="col-md-3"> Favorite </div>
+                <div class="col-md-3"> Actions </div>
+                <br/>
+            </h4>
+         {% for song in album.song_set.all %}
+              <h4><div class="col-md-3">{{ song.song_title}} </div>
+                <div class="col-md-3"> {{ song.file_type  }} </div>
+
+
+            </h4>
+         {%endfor%}
+        </div>
+
+
+</form>
+
+{% endblock %}

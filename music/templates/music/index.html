@@ -1,0 +1,47 @@
+{% extends 'music/base.html' %}
+{% block title %}
+    Home
+{% endblock %}
+
+{% block body %}
+
+<div class="row">
+<div class="col-md-10 col-md-offset-1" style="background-color: black;margin-left: 100px">
+
+    {% for album in object_list %}
+        <div class="col-md-3 col-md-offset-1" style="background-color:white;border: double;margin-left:72px;margin-top:10px;">
+            <li>
+                <img class="img-rounded" src="{{ album.logo.url }}" width="250px" height="305px" style="margin:-3px;" /><br/>
+                <h5>Title :{{ album.album_title }}</h5>
+                <h5>Artist :{{ album.artist }}</h5>
+                <a href="{% url 'music:detail' album.id %}">
+                 <button class="btn-info btn-sm" type="submit"  style="width: 100px;height:30px;">Details
+                 </button>
+                </a>
+                <!--delete -->
+                <form action="{% url 'music:album-delete' album.id %}" method="post" style="display: inline">
+                    {% csrf_token %}
+                  <button type="submit"> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                  </button>
+                </form>
+
+                <form action="{% url 'music:detail' album.id %}" style="display: inline">
+                   <button type="submit"> <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                   </button>
+
+                </form>
+
+                <a href="{% url 'music:album-update' album.id %}" style="display: inline">
+                   <button type="submit" class="btn btn-outline-primary btn-sm"> <span class="glyphicon glyphicon-upload " aria-hidden="true">update</span>
+                   </button>
+                </a>
+            </li>
+
+        </div>
+
+    {% endfor %}
+
+</ul>
+</div>
+    </div>
+{% endblock %}
